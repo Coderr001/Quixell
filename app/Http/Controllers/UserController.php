@@ -49,7 +49,7 @@ class UserController extends Controller
     public function authenticate(Request $request){
         $credentials = $request->only('email', 'password');
         if(Auth::attempt($credentials)){
-            return redirect()->route('dashboard');
+            return redirect()->route('home');
         }
         return redirect()->route('login')->with('error', 'Invalid credentials');
     }
