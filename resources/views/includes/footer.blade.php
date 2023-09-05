@@ -1,0 +1,1 @@
+<div class="text-center p-4 bg-dark text-white footer w-100">&copy; Quixell 2023</div>

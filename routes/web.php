@@ -13,9 +13,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/home', function () {
-    return view('welcome');
-});
+Route::get("/", function(){
+    return view("pages.home");
+})->name("home");
 
 Route::get("/register", [UserController::class, "register"]);
 Route::post("/register", [UserController::class, "store"]);

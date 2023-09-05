@@ -27,18 +27,15 @@ class UserController extends Controller
             'password' => $request->password
         ]);
         auth()->login($user);
-        return response()->json([
-            'message' => 'User created successfully',
-            'user' => $user
-        ], 201);
+        return redirect()->route('home');
     }
 
     public function register(){
-        return view('user.register');
+        return view('pages.register');
     }
 
     public function login(){
-        return view('user.login');
+        return view('pages.login');
     }
 
     public function logout(){
