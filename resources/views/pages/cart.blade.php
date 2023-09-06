@@ -26,20 +26,12 @@
                         </td>
                     </tr>
                 @endforeach
-                <form action="{{ route('addToCart', ['itemId' => $collection['id']]) }}" method="get">
-                    @csrf
-                    <div class="form-group">
-                        <label for="quantity">Jumlah Order</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Add to Cart</button>
-                </form>
+                
 
             </tbody>
         </table>
         <div class="text-right">
-            <p><strong>Total: {{ $totalPrice }} IDR</strong></p>
+            <p><strong>Total: {{ $total }} IDR</strong></p>
             <a href="{{ route('checkout') }}" class="btn btn-primary">Checkout</a>
         </div>
     @else

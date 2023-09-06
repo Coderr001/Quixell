@@ -20,19 +20,36 @@ class DatabaseSeeder extends Seeder
         // seed product table with 10 products
         $products = [
             [
-                'name' => 'Product 1',
-                'description' => 'Description of Product 1',
-                'price' => '19.99',
-                'image' => 'product1.jpg',
+                'id' => 1,
+                'name' => 'Koleksi 1',
+                'description' => 'Deskripsi koleksi 1.',
+                'price' => '799.000 IDR',
+                'image' => 'images/collection1.jpg'
             ],
             [
-                'name' => 'Product 2',
-                'description' => 'Description of Product 2',
-                'price' => '29.99',
-                'image' => 'product2.jpg',
+                'id' => 2,
+                'name' => 'Koleksi 2',
+                'description' => 'Deskripsi koleksi 2.',
+                'price' => '799.000 IDR',
+                'image' => 'images/collection2.jpg'
             ],
-            // Add more product data as needed
+            [
+                'id' => 3,
+                'name' => 'Koleksi 3',
+                'description' => 'Deskripsi koleksi 3.',
+                'price' => '799.000 IDR',
+                'image' => 'images/collection3.jpg'
+            ],
+             [
+                'id' => 4,
+                'name' => 'Koleksi 4',
+                'description' => 'Deskripsi koleksi 4.',
+                'price' => '999.000 IDR',
+                'image' => 'collection4.jpg'
+            
+            ],
         ];
+
 
         // Insert the data into the 'products' table
         foreach ($products as $productData) {

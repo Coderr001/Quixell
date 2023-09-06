@@ -3,53 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\CartItem; // Import your CartItem model here
+use App\Models\Cart; // Import your CartItem model here
 
 class CartController extends Controller
 {
-    public function index()
-    {
-        $cartItems = CartItem::all(); // Assuming you have a CartItem model
-
-        $totalPrice = 0; // Calculate the total price here
-
-        return view('pages.cart', compact('cartItems', 'totalPrice'));
+    public function store(Request $request){
+        $cart = new Cart();
+        $cart->user_id = auth()->user()->id;
+        $cart->product_id = $request->id;
+        $cart->quantity = $request->quantity;
+        $cart->save();
+        return redirect()->route('cart');
     }
 
-    public function addToCart(Request $request, $itemId)
-    {
-        $quantity = $request->input('quantity');
-
-        // Add logic to add the item with $itemId and $quantity to the cart here
-
-        return redirect()->route('collections.show', ['id' => $itemId])->with('success', 'Item added to cart.');
+    public function getByUser(){
+        $cart = Cart::where('user_id', auth()->user()->id)->get();
+        return view('cart.index', ['cart' => $cart]);
     }
 
-    public function removeFromCart($id)
-    {
-        // Add logic to remove the item with $id from the cart here
+    public function index(){
+        $cart = Cart::where('user_id', auth()->user()->id)->get();
+        // get the total price of all items in the cart
+        $total = 0;
+        foreach($cart as $item){
+            $total += $item->product->price * $item->quantity;
+        }
 
-        return redirect()->route('cart')->with('success', 'Item removed from cart.');
+        
+
+        return view('pages.cart', ['cartItems' => $cart, 'total' => $total]);
     }
 
-    public function checkout()
-    {
-    
-
-        return view('pages.checkout');
+    public function destroy($id){
+        $cart = Cart::find($id);
+        $cart->delete();
+        return redirect()->route('cart');
     }
-    public function store(Request $request)
-    {
-        // Logic to add items to the cart goes here
 
-        // Example: You can retrieve the item ID and quantity from the request
-        $itemId = $request->input('itemId');
-        $quantity = $request->input('quantity');
-
-        // Then, you can add the item to the cart or perform any other necessary actions
-
-        // After adding the item, you might want to redirect back to the collection page or show a success message
-        return redirect()->route('collections.index')->with('success', 'Item added to cart successfully');
+    public function checkout(){
+        $cart = Cart::where('user_id', auth()->user()->id)->get();
+        // get the total price of all items in the cart
+        // delete all items in the cart
+        foreach($cart as $item){
+            $item->delete();
+        }
+        return redirect()->route('cart');
     }
 }
     

@@ -21,8 +21,10 @@
             <a href="{{ route('cart') }}" class="navbar-brand text-white">Cart</a>
             <a href="{{ route('aboutus') }}" class="navbar-brand text-white">About Us</a>
             <a href="{{ route('profile', ['id' => Auth::user()->id]) }}" class="navbar-brand text-white">Profile</a>          
+            <a href="{{ route('logout') }}" class="navbar-brand ml-auto text-white">Logout</a>
+        @else
+            <a href="{{ route('login') }}" class="navbar-brand ml-auto text-white">Login</a>
+            <a href="{{ route('register') }}" class="navbar-brand text-white">Register</a>
         @endif
-        <a href="{{ route('login') }}" class="navbar-brand ml-auto text-white">Login</a>
-        <a href="{{ route('register') }}" class="navbar-brand text-white">Register</a>
     </div>
 </div>

@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-                <img src="{{ $collection['image'] }}" class="card-img-top" alt="{{ $collection['title'] }}">
+                <img src="{{ asset($collection['image']) }}" class="card-img-top" alt="{{ $collection['title'] }}">
             </div>
         </div>
         <div class="col-md-6">
@@ -16,7 +16,7 @@
                     <p class="card-text">{{ $collection['description'] }}</p>
                     <p class="card-text"><strong>Harga: {{ $collection['price'] }}</strong></p>
 
-                    <form action="{{ route('addToCart', ['itemId' => $collection['id']]) }}" method="post">
+                    <form action="/cart/add/{{$collection['id']}}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="quantity">Jumlah Order</label>

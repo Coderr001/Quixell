@@ -11,15 +11,46 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="{{ asset('images/user-avatar.jpg') }}" alt="User Avatar" class="img-fluid">
+                                <img src="{{ asset('images/'.$user->image) }}" alt="User Avatar" class="img-fluid">
                             </div>
                             <div class="col-md-8">
-                                <h3>{{ $user->first_name }} {{ $user->last_name }}</h3>
-                                <p>Email: {{ $user->email }}</p>
-                                <p>Gender: {{ $user->gender }}</p>
-                                <p>Alamat: {{ $user->alamat }}</p> <!-- Contoh informasi tambahan -->
-                                <p>Nomor Telepon: {{ $user->nomor_telepon }}</p> <!-- Contoh informasi tambahan -->
-                                <a href="{{ route('profile.edit') }}" class="btn btn-secondary">Edit Profile</a>
+                                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                                    @csrf
+                                    
+                            
+                                    <div class="form-group">
+                                        <label for="image">Profile Photo</label>
+                                        <input type="file" class="form-control-file" id="image" name="image">
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="first_name">First Name</label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ $user->first_name }}">
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="last_name">Last Name</label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $user->last_name }}">
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <select class="form-control" id="gender" name="gender">
+                                            <option value="m" {{ $user->gender === 'm' ? 'selected' : '' }}>Male</option>
+                                            <option value="f" {{ $user->gender === 'f' ? 'selected' : '' }}>Female</option>
+                                        </select>
+                                    </div>
+                                    <form action="{{ route('profile.update') }}" method="POST">
+                                @csrf
+                            
+                            
+                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                </form>
 
                             </div>
                         </div>

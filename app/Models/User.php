@@ -44,4 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // create relationship between user and products with cart as a pivot tabel
+    public function products(){
+        return $this->hasManyThrough(Product::class, Cart::class, 'user_id', 'id', 'id', 'product_id');
+    }
 }

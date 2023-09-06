@@ -81,20 +81,36 @@ class UserController extends Controller
             return abort(401);
         }
     
-        return view('pages.edit-profile', compact('user'));
+        return view('pages.profile', compact('user'));
     }
-    public function updateProfile(Request $request) {
+    public function updateProfile(User $user, Request $request) {
+        
         $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'gender' => ['required', new GenderRule],
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
         $user = Auth::user();
-    
-        if (!$user) {
-
-            return abort(401);
+        
+        // handle image upload
+        if($request->hasFile('image')){
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
         }
-    
 
+        // update user
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        if($request->hasFile('image')){
+            $user->image = $imageName;
+        }
+        $user->email = $request->email;
+        $user->gender = $request->gender;
+        $user->save();
+        
+        
         return redirect()->route('profile')->with('success', 'Profile updated successfully');
     }
     
