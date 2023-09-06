@@ -51,4 +51,54 @@ class UserController extends Controller
         return redirect()->route('login')->with('error', 'Invalid credentials');
     }
 
+    public function profile($id) {
+    
+        $user = User::find($id);
+    
+        if (!$user) {
+            // Handle jika user tidak ditemukan
+            return abort(404);
+        }
+    
+        return view('pages.profile', compact('user'));
+    
+    }
+    
+    public function index(){
+
+        return view('profile');
+    }
+
+    public function edit(){
+
+        return view('pages.edit-profile');
+    }
+
+    public function editProfile() {
+        $user = Auth::user();
+    
+        if (!$user) {
+            return abort(401);
+        }
+    
+        return view('pages.edit-profile', compact('user'));
+    }
+    public function updateProfile(Request $request) {
+        $request->validate([
+        ]);
+    
+        $user = Auth::user();
+    
+        if (!$user) {
+
+            return abort(401);
+        }
+    
+
+        return redirect()->route('profile')->with('success', 'Profile updated successfully');
+    }
+    
+    
+    
+
 }

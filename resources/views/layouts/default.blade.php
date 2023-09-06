@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
     @include('includes.head')
+    <style>
+        body {
+            background-color: #FFF4E6; 
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
     <div class="">
